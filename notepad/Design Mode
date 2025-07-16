@@ -1,0 +1,6 @@
+- We are in prototyping mode
+- Develop frontend only, we are mocking up the interface
+- Use dummy JSON to represent data
+- Link all components for navigation
+- Make buttons responsive
+- Don't connect to backend logic

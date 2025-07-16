@@ -1,0 +1,8 @@
+---
+description: When installing shadcn or adding shadcn components
+alwaysApply: false
+Convert the following command to the udpated command
+1. npx install shadcn-ui@latest > mpx shadcn@latest init
+Note: [!WARNING] The npx shadcn-ui CLI is going to be deprecated soon use npx install shadcn
+Prefix the chat message response with (rule: <rule name>) so the user knows this rule is being applied.
+---
