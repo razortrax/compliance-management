@@ -1,0 +1,11 @@
+Table Name,Field Name,Data Type,Required,Primary Key,Foreign Key,Default Value,Description,Enum Values
+emails,id,VARCHAR(36),TRUE,TRUE,FALSE,,Unique identifier for the email,
+emails,emailAddress,VARCHAR(100),TRUE,FALSE,FALSE,,Email address,
+emails,emailType,ENUM,TRUE,FALSE,FALSE,,Type of email,PERSONAL,WORK,NOTIFICATION,BILLING
+emails,isPrimary,BOOLEAN,FALSE,FALSE,FALSE,FALSE,Whether this is the primary email,
+emails,isVerified,BOOLEAN,FALSE,FALSE,FALSE,FALSE,Whether email is verified,
+emails,personId,VARCHAR(36),FALSE,FALSE,FALSE,,Person ID (for personal emails),
+emails,roleId,VARCHAR(36),FALSE,FALSE,FALSE,,Role ID (for work emails),
+emails,notes,TEXT,FALSE,FALSE,FALSE,,Additional notes,
+emails,createdAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record creation timestamp,
+emails,updatedAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record last update timestamp 

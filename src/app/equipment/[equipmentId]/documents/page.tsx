@@ -1,10 +1,33 @@
 "use client";
+import { useState, useEffect } from "react";
 
-export default function EquipmentDocumentsPage() {
+export default function EquipmentDocumentsPage({ params }: any) {
+  const [documents, setDocuments] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        const res = await fetch(`/api/equipment/${params.equipmentId}/documents`);
+        const data = await res.json();
+        setDocuments(data);
+      } catch (error) {
+        console.error("Failed to fetch documents:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDocuments();
+  }, [params.equipmentId]);
+
+  if (isLoading) {
+    return <div>Loading documents...</div>;
+  }
+
   return (
-    <main className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Documents</h1>
-      <div className="bg-white rounded shadow p-4">Equipment documents go here.</div>
-    </main>
+    <div>
+      <h1 className="text-2xl font-bold mb-4">Equipment Documents</h1>
+      {/* Render documents here */}
+    </div>
   );
 } 

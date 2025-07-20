@@ -1,10 +1,33 @@
 "use client";
+import { useState, useEffect } from "react";
 
-export default function DriverDocumentsPage() {
+export default function DriverDocumentsPage({ params }: any) {
+  const [documents, setDocuments] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        const res = await fetch(`/api/persons/${params.driverId}/documents`);
+        const data = await res.json();
+        setDocuments(data);
+      } catch (error) {
+        console.error("Failed to fetch documents:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDocuments();
+  }, [params.driverId]);
+
+  if (isLoading) {
+    return <div>Loading documents...</div>;
+  }
+
   return (
-    <main className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Documents</h1>
-      <div className="bg-white rounded shadow p-4">Driver documents go here.</div>
-    </main>
+    <div>
+      <h1 className="text-2xl font-bold mb-4">Driver Documents</h1>
+      {/* Render documents here */}
+    </div>
   );
 } 

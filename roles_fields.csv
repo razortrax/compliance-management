@@ -1,0 +1,18 @@
+Table Name,Field Name,Data Type,Required,Primary Key,Foreign Key,Default Value,Description,Enum Values
+roles,id,VARCHAR(36),TRUE,TRUE,FALSE,,Unique identifier for the role,
+roles,partyA_type,ENUM,TRUE,FALSE,FALSE,,Type of party A,ORGANIZATION,PERSON,EQUIPMENT
+roles,partyA_id,VARCHAR(36),TRUE,FALSE,FALSE,,ID of party A (references respective table),
+roles,partyB_type,ENUM,TRUE,FALSE,FALSE,,Type of party B,ORGANIZATION,PERSON,EQUIPMENT
+roles,partyB_id,VARCHAR(36),TRUE,FALSE,FALSE,,ID of party B (references respective table),
+roles,roleType,ENUM,TRUE,FALSE,FALSE,,Type of relationship,DRIVER,ASSET,LOCATION,STAFF,SPOUSE,CHILD,CONTACT,DOT_AGENCY,SELF,DEPARTMENT,ORGANIZATION,VENDOR
+roles,startDate,DATE,TRUE,FALSE,FALSE,,Start date of the relationship,
+roles,endDate,DATE,FALSE,FALSE,FALSE,,End date of the relationship (null if active),
+roles,employeeId,VARCHAR(20),FALSE,FALSE,FALSE,,Employee ID (for driver/staff roles),
+roles,department,VARCHAR(100),FALSE,FALSE,FALSE,,Department assignment,
+roles,hireDate,DATE,FALSE,FALSE,FALSE,,Hire date (for driver/staff roles),
+roles,unitNumber,VARCHAR(20),FALSE,FALSE,FALSE,,Unit number (for equipment roles),
+roles,fleetId,VARCHAR(20),FALSE,FALSE,FALSE,,Fleet ID (for equipment roles),
+roles,assignedDepartment,VARCHAR(100),FALSE,FALSE,FALSE,,Assigned department (for equipment roles),
+roles,notes,TEXT,FALSE,FALSE,FALSE,,Additional notes about the relationship,
+roles,createdAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record creation timestamp,
+roles,updatedAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record last update timestamp 

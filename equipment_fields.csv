@@ -1,0 +1,29 @@
+Table Name,Field Name,Data Type,Required,Primary Key,Foreign Key,Default Value,Description,Enum Values
+equipment,id,VARCHAR(36),TRUE,TRUE,FALSE,,Unique identifier for the equipment,
+equipment,year,INT,TRUE,FALSE,FALSE,,Manufacturing year,
+equipment,make,VARCHAR(100),TRUE,FALSE,FALSE,,Vehicle make,
+equipment,model,VARCHAR(100),TRUE,FALSE,FALSE,,Vehicle model,
+equipment,vin,VARCHAR(17),TRUE,FALSE,FALSE,,Vehicle Identification Number,
+equipment,equipmentType,ENUM,TRUE,FALSE,FALSE,,Type of equipment,TRACTOR,TRAILER,STRAIGHT_TRUCK,PICKUP,VAN
+equipment,status,ENUM,TRUE,FALSE,FALSE,ACTIVE,Current status,ACTIVE,INACTIVE,MAINTENANCE,OUT_OF_SERVICE
+equipment,odometer,INT,FALSE,FALSE,FALSE,,Current odometer reading,
+equipment,engineHours,INT,FALSE,FALSE,FALSE,,Engine hours,
+equipment,fuelType,ENUM,FALSE,FALSE,FALSE,,Fuel type,GASOLINE,DIESEL,PROPANE,ELECTRIC
+equipment,vehWtGrs,INT,FALSE,FALSE,FALSE,,Equipment gross vehicle weight,
+equipment,vehWtGrsRating,INT,FALSE,FALSE,FALSE,,Equipment gross vehicle weight rating,
+equipment,vehWtGrsTagged,INT,FALSE,FALSE,FALSE,,Equipment gross vehicle weight tagged,
+equipment,typeFuel,ENUM,FALSE,FALSE,FALSE,,Fuel Type,GASOLINE,DIESEL,PROPANE,ELECTRIC
+equipment,engineModel,VARCHAR(36),FALSE,FALSE,FALSE,,Engine model,
+equipment,engineDisplacement,VARCHAR(10),FALSE,FALSE,FALSE,,Engine displacement,
+equipment,driveType,VARCHAR(50),FALSE,FALSE,FALSE,,Drive type,
+equipment,dateOfManufacture,DATE,FALSE,FALSE,FALSE,,Date of manufacture,
+equipment,countCylinders,INT,FALSE,FALSE,FALSE,,Number of cylinders if combustion engine,
+equipment,countAxles,INT,FALSE,FALSE,FALSE,,Number of axles,
+equipment,color,VARCHAR(50),FALSE,FALSE,FALSE,,Vehicle color,
+equipment,mileageCurrent,INT,FALSE,FALSE,FALSE,,Current mileage,
+equipment,typeVehicle,ENUM,FALSE,FALSE,FALSE,,Vehicle Type,PDC_DAY_CAB,PSC_SLEEPER_CAB,PBT_BOX_TRUCK,PST_STRAIGHT_TRUCK,PSV_SPRINTER_VAN,PTT_TRACTOR_TRUCK,TR_GAS_TRACTOR_TRUCK,TRC_TRACTOR_TRUCK,DMP_DUMP_TRUCK,DS_DIESEL_TRACTOR_TRUCK,CAR_CAR,PK_PICKUP_TRUCK,FKL_FORKLIFT,CRN_CRANE,TLH_TELEHANDLER,TROLLY,ROL_ROLL_OFF,PMP_PUMP_OFF_TRUCK,WINCH_TRUCK
+equipment,tireSize,VARCHAR(50),FALSE,FALSE,FALSE,,Tire size,
+equipment,typeOwnership,ENUM,FALSE,FALSE,FALSE,,Ownership type,OWNER_OPERATOR,LEASED,OWNED,RENT
+equipment,category,ENUM,FALSE,FALSE,FALSE,,Equipment category,POWER,TRAILER
+equipment,createdAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record creation timestamp,
+equipment,updatedAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record last update timestamp 

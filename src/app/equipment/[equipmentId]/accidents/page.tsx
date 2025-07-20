@@ -1,10 +1,35 @@
 "use client";
+import { useState, useEffect } from "react";
+import IssueMasterDetail from "../../../../components/IssueMasterDetail";
 
-export default function EquipmentAccidentsPage() {
+export default function AccidentsPage({ params }: any) {
+  const [issues, setIssues] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchIssues = async () => {
+      try {
+        const res = await fetch(`/api/issues?equipmentId=${params.equipmentId}&type=ACCIDENT`);
+        const data = await res.json();
+        setIssues(data);
+      } catch (error) {
+        console.error("Failed to fetch accident issues:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchIssues();
+  }, [params.equipmentId]);
+
+  if (isLoading) {
+    return <div>Loading accident records...</div>;
+  }
+
   return (
-    <main className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Accidents</h1>
-      <div className="bg-white rounded shadow p-4">Equipment accident records go here.</div>
-    </main>
+    <IssueMasterDetail
+      title="Accidents"
+      issues={issues}
+      violations={[]} // You would fetch these from an API
+    />
   );
 } 

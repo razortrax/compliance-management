@@ -1,0 +1,19 @@
+Table Name,Field Name,Data Type,Required,Primary Key,Foreign Key,Default Value,Description,Enum Values
+organizations,id,VARCHAR(36),TRUE,TRUE,FALSE,,Unique identifier for the organization,
+organizations,name,VARCHAR(200),TRUE,FALSE,FALSE,,Organization name,
+organizations,type,ENUM,TRUE,FALSE,FALSE,,Type of organization,MASTER_ORGANIZATION,SUB_ORGANIZATION,LOCATION
+organizations,status,ENUM,TRUE,FALSE,FALSE,ACTIVE,Current status of the organization,ACTIVE,INACTIVE,SUSPENDED
+organizations,complianceStatus,ENUM,TRUE,FALSE,FALSE,COMPLIANT,Compliance status,COMPLIANT,AUDIT,CONDITIONAL,UNSAFE
+organizations,dotNumber,VARCHAR(20),FALSE,FALSE,FALSE,,DOT number,
+organizations,insurance,VARCHAR(100),FALSE,FALSE,FALSE,,Insurance provider,
+organizations,permits,TEXT[],FALSE,FALSE,FALSE,,Array of permits,
+organizations,safetyRating,ENUM,FALSE,FALSE,FALSE,,Safety rating,SATISFACTORY,CONDITIONAL,UNSATISFACTORY
+organizations,lastAuditDate,DATE,FALSE,FALSE,FALSE,,Last audit date,
+organizations,contactPerson,VARCHAR(100),FALSE,FALSE,FALSE,,Primary contact person,
+organizations,contactPhone,VARCHAR(20),FALSE,FALSE,FALSE,,Contact phone number,
+organizations,contactEmail,VARCHAR(100),FALSE,FALSE,FALSE,,Contact email,
+organizations,website,VARCHAR(200),FALSE,FALSE,FALSE,,Website URL,
+organizations,fleetSize,INT,FALSE,FALSE,FALSE,,Number of vehicles in fleet,
+organizations,driverCount,INT,FALSE,FALSE,FALSE,,Number of drivers,
+organizations,createdAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record creation timestamp,
+organizations,updatedAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record last update timestamp 

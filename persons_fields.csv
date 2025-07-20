@@ -1,0 +1,14 @@
+Table Name,Field Name,Data Type,Required,Primary Key,Foreign Key,Default Value,Description,Enum Values
+persons,id,VARCHAR(36),TRUE,TRUE,FALSE,,Unique identifier for the person,
+persons,firstName,VARCHAR(100),TRUE,FALSE,FALSE,,First name,
+persons,middleName,VARCHAR(100),FALSE,FALSE,FALSE,,Middle name,
+persons,lastName,VARCHAR(100),TRUE,FALSE,FALSE,,Last name,
+persons,dob,DATE,TRUE,FALSE,FALSE,,Date of birth,
+persons,ssn,VARCHAR(11),TRUE,FALSE,FALSE,,Social Security Number,
+persons,status,ENUM,TRUE,FALSE,FALSE,ACTIVE,Current status,ACTIVE,INACTIVE,TERMINATED
+persons,lastLoginAt,TIMESTAMP,FALSE,FALSE,FALSE,,Last login timestamp,
+persons,loginCount,INT,FALSE,FALSE,FALSE,0,Number of successful logins,
+persons,failedLoginAttempts,INT,FALSE,FALSE,FALSE,0,Number of failed login attempts,
+persons,twoFactorEnabled,BOOLEAN,FALSE,FALSE,FALSE,FALSE,Whether 2FA is enabled,
+persons,createdAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record creation timestamp,
+persons,updatedAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record last update timestamp 

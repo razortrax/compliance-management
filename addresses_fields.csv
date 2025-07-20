@@ -1,0 +1,16 @@
+Table Name,Field Name,Data Type,Required,Primary Key,Foreign Key,Default Value,Description,Enum Values
+addresses,id,VARCHAR(36),TRUE,TRUE,FALSE,,Unique identifier for the address,
+addresses,addressType,ENUM,TRUE,FALSE,FALSE,,Type of address,HOME,WORK,BILLING,SHIPPING,MAILING
+addresses,streetAddress,VARCHAR(200),TRUE,FALSE,FALSE,,Street address,
+addresses,streetAddress2,VARCHAR(100),FALSE,FALSE,FALSE,,Street address line 2,
+addresses,city,VARCHAR(100),TRUE,FALSE,FALSE,,City,
+addresses,state,CHAR(2),TRUE,FALSE,FALSE,,State abbreviation,
+addresses,zipCode,VARCHAR(10),TRUE,FALSE,FALSE,,ZIP code,
+addresses,country,VARCHAR(50),FALSE,FALSE,FALSE,USA,Country,
+addresses,isPrimary,BOOLEAN,FALSE,FALSE,FALSE,FALSE,Whether this is the primary address,
+addresses,isActive,BOOLEAN,FALSE,FALSE,FALSE,TRUE,Whether this address is active,
+addresses,personId,VARCHAR(36),FALSE,FALSE,FALSE,,Person ID (for personal addresses),
+addresses,organizationId,VARCHAR(36),FALSE,FALSE,FALSE,,Organization ID (for company/location addresses),
+addresses,notes,TEXT,FALSE,FALSE,FALSE,,Additional notes,
+addresses,createdAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record creation timestamp,
+addresses,updatedAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record last update timestamp 

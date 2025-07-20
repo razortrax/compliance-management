@@ -1,0 +1,10 @@
+Table Name,Field Name,Data Type,Required,Primary Key,Foreign Key,Default Value,Description,Enum Values
+phones,id,VARCHAR(36),TRUE,TRUE,FALSE,,Unique identifier for the phone,
+phones,phoneNumber,VARCHAR(20),TRUE,FALSE,FALSE,,Phone number,
+phones,phoneType,ENUM,TRUE,FALSE,FALSE,,Type of phone,PERSONAL,WORK,MOBILE,FAX,EMERGENCY
+phones,isPrimary,BOOLEAN,FALSE,FALSE,FALSE,FALSE,Whether this is the primary phone,
+phones,personId,VARCHAR(36),FALSE,FALSE,FALSE,,Person ID (for personal phones),
+phones,roleId,VARCHAR(36),FALSE,FALSE,FALSE,,Role ID (for work phones),
+phones,notes,TEXT,FALSE,FALSE,FALSE,,Additional notes,
+phones,createdAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record creation timestamp,
+phones,updatedAt,TIMESTAMP,TRUE,FALSE,FALSE,CURRENT_TIMESTAMP,Record last update timestamp 

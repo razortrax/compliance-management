@@ -1,0 +1,324 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id               String    @id @default(cuid())
+  name             String
+  type             String
+  status           String
+  complianceStatus String
+  address          String?
+  city             String?
+  state            String?
+  zip              String?
+  phone            String?
+  email            String?
+  dotNumber        String?   @unique
+  insurance        String?
+  // permits          String[]
+  safetyRating     String?
+  subscriptionTier String?
+  billingCycle     String?
+  maxSubCompanies  Int?
+  contactPerson    String?
+  contactPhone     String?
+  contactEmail     String?
+  website          String?
+  fleetSize        Int?
+  driverCount      Int?
+  lastAuditDate    DateTime?
+  nextAuditDate    DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  // Relations
+  managedBy Role[] @relation("ManagedBy")
+  managing  Role[] @relation("Managing")
+  users     User[]
+  // This is no longer needed as the relationship is more specific now
+  // roles              Role[]    @relation("OrganizationRoles")
+}
+
+model Person {
+  id                  String    @id @default(cuid())
+  firstName           String
+  lastName            String
+  dob                 DateTime?
+  ssn                 String?
+  status              String
+  lastLoginAt         DateTime?
+  loginCount          Int?
+  failedLoginAttempts Int?
+  twoFactorEnabled    Boolean   @default(false)
+
+  // Relations
+  user  User?
+  roles Role[]
+  assignedCorrectiveActions CorrectiveAction[] @relation("AssignedBy")
+  assignedToCorrectiveActions CorrectiveAction[] @relation("AssignedTo")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String
+  role        String
+  companyType String
+  permissions String[]
+
+  // Relations
+  personId     String       @unique
+  person       Person       @relation(fields: [personId], references: [id])
+  companyId    String
+  organization Organization @relation(fields: [companyId], references: [id])
+  locationId   String?
+}
+
+model Equipment {
+  id    String @id @default(cuid())
+  make  String
+  model String
+  year  Int
+  vin   String @unique
+
+  // Relations
+  roles Role[]
+}
+
+model Role {
+  id        String    @id @default(cuid())
+  roleType  String
+  startDate DateTime
+  endDate   DateTime?
+
+  // --- Relationships ---
+  // A role might involve a person...
+  personId String?
+  person   Person? @relation(fields: [personId], references: [id])
+
+  // ...or an organization...
+  // This is too generic and created ambiguity. Replaced by specific relations below.
+  // organizationId  String?
+  // organization    Organization? @relation(fields: [organizationId], references: [id])
+
+  // ...or a piece of equipment.
+  equipmentId String?
+  equipment   Equipment? @relation(fields: [equipmentId], references: [id])
+
+  // Special case for Organization-to-Organization management
+  managingOrgId String?
+  managingOrg   Organization? @relation("Managing", fields: [managingOrgId], references: [id])
+
+  managedOrgId String?
+  managedOrg   Organization? @relation("ManagedBy", fields: [managedOrgId], references: [id])
+
+  Issue Issue[]
+}
+
+model Issue {
+  id        String    @id @default(cuid())
+  type      String
+  status    String
+  date      DateTime
+  expiresOn DateTime?
+
+  // Relations
+  roleId String
+  role   Role   @relation(fields: [roleId], references: [id])
+  CorrectiveAction CorrectiveAction[] // An Issue can have multiple corrective actions
+
+  // Detail Tables
+  License            License?
+  Mvr                Mvr?
+  DrugTest           DrugTest?
+  Physical           Physical?
+  Training           Training?
+  Registration       Registration?
+  AnnualInspection   AnnualInspection?
+  Maintenance        Maintenance?
+  RoadsideInspection RoadsideInspection?
+  AlcoholTest        AlcoholTest?
+  HosViolation       HosViolation?
+  Hazmat             Hazmat?
+  Accident           Accident?
+}
+
+// --- Detail Tables ---
+
+model License {
+  id            String   @id @default(cuid())
+  issueId       String   @unique
+  issue         Issue    @relation(fields: [issueId], references: [id])
+  licenseState  String
+  licenseNumber String
+  endorsements  String[]
+  notes         String?
+}
+
+model Mvr {
+  id              String  @id @default(cuid())
+  issueId         String  @unique
+  issue           Issue   @relation(fields: [issueId], references: [id])
+  state           String
+  violationsCount Int
+  cleanRecord     Boolean
+  notes           String?
+}
+
+model DrugTest {
+  id           String  @id @default(cuid())
+  issueId      String  @unique
+  issue        Issue   @relation(fields: [issueId], references: [id])
+  result       String
+  substance    String
+  lab          String
+  accreditedBy String
+  notes        String?
+}
+
+model Physical {
+  id                   String  @id @default(cuid())
+  issueId              String  @unique
+  issue                Issue   @relation(fields: [issueId], references: [id])
+  medicalExaminer      String
+  expirationNoticeSent Boolean
+  notes                String?
+}
+
+model Training {
+  id                String  @id @default(cuid())
+  issueId           String  @unique
+  issue             Issue   @relation(fields: [issueId], references: [id])
+  trainingType      String
+  provider          String
+  certificateNumber String
+  notes             String?
+}
+
+model Registration {
+  id          String  @id @default(cuid())
+  issueId     String  @unique
+  issue       Issue   @relation(fields: [issueId], references: [id])
+  plateNumber String
+  state       String
+  notes       String?
+}
+
+model AnnualInspection {
+  id                 String  @id @default(cuid())
+  issueId            String  @unique
+  issue              Issue   @relation(fields: [issueId], references: [id])
+  inspectionLocation String
+  inspectorName      String
+  passed             Boolean
+  notes              String?
+}
+
+model Maintenance {
+  id              String  @id @default(cuid())
+  issueId         String  @unique
+  issue           Issue   @relation(fields: [issueId], references: [id])
+  maintenanceType String
+  odometer        Int
+  notes           String?
+}
+
+model RoadsideInspection {
+  id          String  @id @default(cuid())
+  issueId     String  @unique
+  issue       Issue   @relation(fields: [issueId], references: [id])
+  location    String
+  level       String
+  officerName String
+  notes       String?
+  violations  Json // Storing violations as a JSON array for now
+}
+
+model AlcoholTest {
+  id           String  @id @default(cuid())
+  issueId      String  @unique
+  issue        Issue   @relation(fields: [issueId], references: [id])
+  result       String
+  substance    String
+  lab          String
+  accreditedBy String
+  notes        String?
+}
+
+model HosViolation {
+  id            String  @id @default(cuid())
+  issueId       String  @unique
+  issue         Issue   @relation(fields: [issueId], references: [id])
+  violationType String
+  description   String
+  notes         String?
+}
+
+model Hazmat {
+  id              String   @id @default(cuid())
+  issueId         String   @unique
+  issue           Issue    @relation(fields: [issueId], references: [id])
+  endorsementType String
+  status          String
+  expirationDate  DateTime
+  notes           String?
+}
+
+model Accident {
+  id               String  @id @default(cuid())
+  issueId          String  @unique
+  issue            Issue   @relation(fields: [issueId], references: [id])
+  isFatality       Boolean
+  isReportable     Boolean
+  isInjury         Boolean
+  isTow            Boolean
+  isCitation       Boolean
+  isNeedReport     Boolean
+  isDrugTest       Boolean
+  numberFatalities Int?
+  locationAddress  String
+  locationCity     String
+  locationState    String
+  locationZip      String
+  reportNumber     String?
+  specimenNumber   String?
+  description      String
+  notes            String?
+  attachments      Json // Storing attachments as a JSON array for now
+}
+
+model CorrectiveAction {
+  id                String    @id @default(cuid())
+  issueId           String
+  issue             Issue     @relation(fields: [issueId], references: [id])
+  
+  // Assignment Details
+  status            String    // e.g., 'Assigned', 'Completed', 'Overdue'
+  assignedById      String
+  assignedBy        Person    @relation("AssignedBy", fields: [assignedById], references: [id])
+  assignedToId      String
+  assignedTo        Person    @relation("AssignedTo", fields: [assignedToId], references: [id])
+  assignmentNotes   String?
+  violations        Json      // The specific violations this CAF addresses
+  
+  // Completion Details
+  completionDate    DateTime?
+  completionNotes   String?
+  signature         String?   // Could store a data URL or a path to a signature image
+  // attachments can be a separate model in the future if needed
+
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
