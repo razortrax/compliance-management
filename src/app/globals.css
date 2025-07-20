@@ -39,6 +39,8 @@ body {
 /* Colors */
 .bg-gray-800 { background-color: #1f2937; }
 .bg-gray-700 { background-color: #374151; }
+.bg-gray-200 { background-color: #e5e7eb; }
+.bg-gray-100 { background-color: #f3f4f6; }
 .bg-white { background-color: #ffffff; }
 .bg-blue-600 { background-color: #2563eb; }
 .bg-blue-50 { background-color: #eff6ff; }
@@ -162,6 +164,7 @@ body {
 /* Hover effects */
 .hover\:text-gray-300:hover { color: #d1d5db; }
 .hover\:bg-gray-700:hover { background-color: #374151; }
+.hover\:bg-gray-200:hover { background-color: #e5e7eb; }
 .hover\:bg-blue-700:hover { background-color: #1d4ed8; }
 
 /* Transitions */
